@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sj.store.mapper.StoreMapper">
+	<select id="queryMyStore" parameterType="string" resultType="string" >
+		select favorite_id from t_favorite where user_name=#{userName};
+	</select>
+	
+	<select id="queryMovieById" parameterType="string" resultType="Purchase">
+		select * from t_purchase where favorite_id=#{favoriteId};
+	</select>
+	
+	<delete id="deleteStore" parameterType="Favorite">
+		delete from t_favorite where favorite_id=#{favoriteId} and user_name=#{userName};
+	</delete>
+	
+	<insert id="addStore" parameterType="Favorite">
+		insert into t_favorite (
+		user_name,
+		favorite_id)value(
+		#{userName},
+		#{favoriteId});
+	</insert>
+</mapper> 
+
+
+
+
+
+
+
+
+
+
+
+
