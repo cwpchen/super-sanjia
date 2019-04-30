@@ -1,0 +1,4 @@
+!*.properties
+target/
+*.project
+*.class

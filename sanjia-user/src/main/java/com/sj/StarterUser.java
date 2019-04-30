@@ -7,8 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @MapperScan("com.sj.user.mapper")
 public class StarterUser {
-	private void mian(String[] args) {
+	public static void main(String[] args) {
 		SpringApplication.run(StarterUser.class, args);
-
 	}
 }

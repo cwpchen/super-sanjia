@@ -3,7 +3,6 @@ package com.sj.search.util;
 import org.frameworkset.elasticsearch.ElasticSearchHelper;
 import org.frameworkset.elasticsearch.client.DataStream;
 import org.frameworkset.elasticsearch.client.ImportBuilder;
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -65,9 +64,4 @@ public class SearchUtil {
 		dataStream.db2es();
 	}
 
-	@Test
-	public void Demo(String[] args) {
-		importDbConfig();
-		importOperate();
-	}
 }
