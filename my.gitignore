@@ -2,7 +2,8 @@
 target/
 *.project
 *.class
+*.prefs
 *.component
 *.classpath
 *.project
-.settings/
+*.settings/
