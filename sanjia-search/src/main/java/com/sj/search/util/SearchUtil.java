@@ -12,7 +12,7 @@ public class SearchUtil {
 	private String dbName;
 	@Value("${spring.datasource.driver-class-name}")
 	private String dbDrive;
-	@Value("${spring.datasource.url}")
+	@Value("${spring.data.url}")
 	private String dbUrl;
 	@Value("${spring.datasource.username}")
 	private String dbUser;

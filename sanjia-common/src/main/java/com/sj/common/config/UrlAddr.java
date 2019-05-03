@@ -16,5 +16,5 @@ public class UrlAddr {
 	
 	 public final static String searchqueryUrl="http://search.sj.com/search/";
 	 public final static String searchquerykey01="/associate/";
-	 public final static String searchquerykey02="/films/";
+	 public final static String searchquerykey02="/films";
 }

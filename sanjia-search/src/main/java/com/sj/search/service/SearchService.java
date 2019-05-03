@@ -14,10 +14,15 @@ import org.springframework.stereotype.Service;
 
 import com.sj.common.pojo.Movie;
 import com.sj.common.pojo.ObjectUtil;
+import com.sj.common.pojo.Purchase;
+import com.sj.common.vo.MovieDetail;
+import com.sj.search.mapper.SearchMapper;
 @Service
 public class SearchService {
 	@Autowired
 	private TransportClient search;
+	@Autowired
+	private SearchMapper searchMapper;
 
 	public List<String> getFilmName(String filmName) {
 		try {
@@ -40,6 +45,37 @@ public class SearchService {
 			return null;
 		}
 		
+	}
+
+	public MovieDetail getFilmDetail(String movieName) {
+		String name = movieName;
+		List<Purchase> purchaseL = new ArrayList<Purchase>();
+		MovieDetail movieDetail = new MovieDetail();
+		//从数据库查询movieName对应t_movie的表数据
+		Movie movie = searchMapper.getMovieInfo(name);
+		//判断数据是否存在
+		if (movie != null) {
+			//如果存在就继续查询对应movieName对应在t_purchase的表信息
+			purchaseL = searchMapper.getPurchaseInfo(movieName);
+			//如果存在  封装到MovieDetail中
+			if(purchaseL != null && purchaseL.size()>0) {
+				movieDetail.setCurrentPage(1);
+				movieDetail.setTotalPage(1);
+				movieDetail.setMovie(movie);
+				if(purchaseL.size()>2) {
+					List<Purchase> purchases = purchaseL.subList(0, 2);
+					movieDetail.setPurchases(purchases);
+				}else {
+					movieDetail.setPurchases(purchaseL);
+				}
+				//返回movieDetail
+				return movieDetail;
+			}else {
+				return null;
+			}
+		}else {			
+			return null;
+		}		
 	}
 
 }

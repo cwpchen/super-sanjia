@@ -14,6 +14,8 @@ import com.sj.common.config.UrlAddr;
 import com.sj.common.pojo.ObjectUtil;
 import com.sj.common.vo.MovieDetail;
 
+import io.netty.util.internal.StringUtil;
+
 @Service
 public class SearchService {
 	@Autowired
@@ -44,8 +46,10 @@ public class SearchService {
 			for (String movieName : movieNameL) {
 				param.put("movieName", movieName);
 				String data = client.doGet(url,param);
-				MovieDetail movie = ObjectUtil.mapper.readValue(data, MovieDetail.class);
-				movieDetails.add(movie);
+				if(!StringUtil.isNullOrEmpty(data)) {					
+					MovieDetail movie = ObjectUtil.mapper.readValue(data, MovieDetail.class);
+					movieDetails.add(movie);
+				}
 			}
 			return movieDetails;
 			

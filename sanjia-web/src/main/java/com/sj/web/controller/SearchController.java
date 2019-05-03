@@ -1,12 +1,12 @@
 package com.sj.web.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -42,9 +42,9 @@ public class SearchController {
 		}
 	}
 	
-	@RequestMapping(value="films",method=RequestMethod.GET)
+	@RequestMapping(value="films",method=RequestMethod.POST)
 	@ResponseBody
-	public List<MovieDetail> getFilmDetail(String json) {
+	public List<MovieDetail> getFilmDetail(@RequestBody String json) {
 
 		try {
 			JsonNode josndata = ObjectUtil.mapper.readTree(json);
