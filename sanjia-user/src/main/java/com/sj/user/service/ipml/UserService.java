@@ -39,6 +39,12 @@ public class UserService {
 		
 	}
 	
+	
+	/**
+	 * 用户登录
+	 * @param user
+	 * @return
+	 */
 	@Autowired
 	private JedisCluster cluster;
 	public String userLogin(User user) {
@@ -47,11 +53,11 @@ public class UserService {
 		user.setPass(password);
 		User exiUser = userMapper.login(user);
 		if(exiUser!=null){ 
-			
+			//查询该用户是否已经登录
 			String exitTicket = cluster.get(exiUser.getName());
 //			String exiTicket = cluster.get("SJ_TICKET");
-			if(StringUtils.isNotEmpty(exitTicket)){
-				cluster.del(exitTicket);
+			if(StringUtils.isNotEmpty(exitTicket)){ //该用户已经登录
+				cluster.del(exitTicket);  //删除用户登录信息
 			}
 			
 			String key = "SJ_TICKET"+user.getName()+System.currentTimeMillis(); 			
@@ -59,8 +65,8 @@ public class UserService {
 			try {
 				jsondata = ObjectUtil.mapper.writeValueAsString(exiUser);
 				String ticket=MD5Util.md5(key);
-				cluster.set(exiUser.getName(), ticket);
-				cluster.set(ticket, jsondata);
+				cluster.set(exiUser.getName(), ticket);//在redis中注册用户登录信息
+				cluster.set(ticket, jsondata);//加入用户ticket 为跨域获取用户信息 和用户续约使用
 				return ticket;
 			} catch (JsonProcessingException e) {
 				// TODO Auto-generated catch block

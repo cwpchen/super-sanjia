@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,8 +42,7 @@ public class StoreController {
 	 * @param favoriteId
 	 * @param request
 	 * @return
-	 */
-	 
+	 */	 
 	@RequestMapping(value="delete/{favoriteId}",method=RequestMethod.GET)
 	public String deleteStore(@PathVariable String favoriteId,
 			HttpServletRequest request){
@@ -51,13 +51,23 @@ public class StoreController {
 		String result = storeService.deleteStore(favorite);
 		return "redirect:/store/mystore";
 	}
-	
+	/**
+	 * 新增用户收藏的购票信息
+	 * @param favoriteId
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="add/{favoriteId}",method=RequestMethod.GET)
 	public String addStore(@PathVariable String favoriteId,
 			HttpServletRequest request){
 		String username = (String)request.getAttribute("name");
-		Favorite favorite = new Favorite(username,favoriteId);
-		String result = storeService.addStore(favorite);
-		return "redirect:/store/mystore";
+		if(StringUtils.isEmpty(username)) {
+			return "login";
+		}else {			
+			Favorite favorite = new Favorite(username,favoriteId);
+			String result = storeService.addStore(favorite);
+			return "redirect:/store/mystore";
+		}
 	}
 	
 }

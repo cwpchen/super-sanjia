@@ -38,12 +38,16 @@ public class StoreService {
 	 * @param favorite
 	 * @return
 	 */
-
 	public String deleteStore(Favorite favorite) {
 
 		return storeMapper.deleteStore(favorite).toString();
 	}
-
+	
+	/**
+	 * 添加一条用户收藏信息
+	 * @param favorite
+	 * @return
+	 */
 	public String addStore(Favorite favorite) {
 		// TODO Auto-generated method stub
 		return storeMapper.addStore(favorite).toString();
