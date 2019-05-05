@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("com.sj.user.mapper")
 public class StarterUser {
 	public static void main(String[] args) {
+		//
 		SpringApplication.run(StarterUser.class, args);
 	}
 }
